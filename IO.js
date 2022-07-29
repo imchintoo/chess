@@ -3,175 +3,41 @@ class Chess {
   places = ["A", "B", "C", "D", "E", "F", "G", "H"];
   pieces = {
     Pawn: {
-      check: (position, actualIndex) => {
-        const [alphabet, positionIndex] = position.split("");
-        const alphaIndex = this.places.indexOf(alphabet);
-        const moves = [];
-        // console.log(alphabet, actualIndex, positionIndex);
-
-        for (let x = 0; x < this.chessboard.length; x++) {
-          for (let y = 0; y < this.chessboard[x].length; y++) {
-            if (y === alphaIndex) {
-              if (typeof this.chessboard[x - 1] !== "undefined") {
-                if (actualIndex === x) {
-                  moves.push(this.chessboard[x - 1][y]);
-                }
-              }
-            }
-          }
-        }
-        moves.sort();
-        return moves.join();
-      },
+      step: 1,
+      east: true,
+      west: false,
+      north: false,
+      south: false,
+      northEast: false,
+      northWest: false,
+      southEast: false,
+      southWest: false,
     },
     King: {
-      check: (position, actualIndex) => {
-        const [alphabet, positionIndex] = position.split("");
-        const alphaIndex = this.places.indexOf(alphabet);
-        const moves = [];
-
-        for (let x = 0; x < this.chessboard.length; x++) {
-          for (let y = 0; y < this.chessboard[x].length; y++) {
-            if (y === alphaIndex) {
-              // one step east
-              if (typeof this.chessboard[x - 1] !== "undefined") {
-                if (actualIndex === x) {
-                  moves.push(this.chessboard[x - 1][y]);
-                }
-
-                // one step for south-east
-                if (typeof this.chessboard[x - 1][y + 1] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x - 1][y + 1]);
-                  }
-                }
-
-                // one step north-east
-                if (typeof this.chessboard[x - 1][y - 1] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x - 1][y - 1]);
-                  }
-                }
-              }
-
-              // one step west
-              if (typeof this.chessboard[x + 1] !== "undefined") {
-                if (actualIndex === x) {
-                  moves.push(this.chessboard[x + 1][y]);
-                }
-
-                // one step south-west
-                if (typeof this.chessboard[x + 1][y + 1] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x + 1][y + 1]);
-                  }
-                }
-
-                // one step north-west
-                if (typeof this.chessboard[x + 1][y - 1] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x + 1][y - 1]);
-                  }
-                }
-              }
-
-              // one step north
-              if (typeof this.chessboard[x][y - 1] !== "undefined") {
-                if (actualIndex === x) {
-                  moves.push(this.chessboard[x][y - 1]);
-                }
-              }
-
-              // one step south
-              if (typeof this.chessboard[x][y + 1] !== "undefined") {
-                if (actualIndex === x) {
-                  moves.push(this.chessboard[x][y + 1]);
-                }
-              }
-            }
-          }
-        }
-
-        moves.sort();
-        return moves.join();
-      },
+      step: 1,
+      east: true,
+      west: true,
+      north: true,
+      south: true,
+      northEast: true,
+      northWest: true,
+      southEast: true,
+      southWest: true,
     },
 
     Queen: {
-      check: (position, actualIndex) => {
-        const [alphabet, positionIndex] = position.split("");
-        const alphaIndex = this.places.indexOf(alphabet);
-        const moves = [];
-
-        for (let x = 0; x < this.chessboard.length; x++) {
-          for (let y = 0; y < this.chessboard[x].length; y++) {
-            if (y === alphaIndex) {
-              for (let p = 1; p <= 7; p++) {
-                // one step east
-                if (typeof this.chessboard[x - p] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x - p][y]);
-                  }
-
-                  // one step for south-east
-                  if (typeof this.chessboard[x - p][y + p] !== "undefined") {
-                    if (actualIndex === x) {
-                      moves.push(this.chessboard[x - p][y + p]);
-                    }
-                  }
-
-                  // one step north-east
-                  if (typeof this.chessboard[x - p][y - p] !== "undefined") {
-                    if (actualIndex === x) {
-                      moves.push(this.chessboard[x - p][y - p]);
-                    }
-                  }
-                }
-
-                // one step west
-                if (typeof this.chessboard[x + p] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x + p][y]);
-                  }
-
-                  // one step south-west
-                  if (typeof this.chessboard[x + p][y + p] !== "undefined") {
-                    if (actualIndex === x) {
-                      moves.push(this.chessboard[x + p][y + p]);
-                    }
-                  }
-
-                  // one step north-west
-                  if (typeof this.chessboard[x + p][y - p] !== "undefined") {
-                    if (actualIndex === x) {
-                      moves.push(this.chessboard[x + p][y - p]);
-                    }
-                  }
-                }
-
-                // one step north
-                if (typeof this.chessboard[x][y - p] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x][y - p]);
-                  }
-                }
-
-                // one step south
-                if (typeof this.chessboard[x][y + p] !== "undefined") {
-                  if (actualIndex === x) {
-                    moves.push(this.chessboard[x][y + p]);
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        moves.sort();
-        return moves.join();
-      },
+      step: 7,
+      east: true,
+      west: true,
+      north: true,
+      south: true,
+      northEast: true,
+      northWest: true,
+      southEast: true,
+      southWest: true,
     },
   };
+
   constructor() {
     this.drawConsole("Let's play chess");
   }
@@ -204,7 +70,6 @@ class Chess {
       console.log("error while preparing chess board", error);
     }
   };
-
   move = (piece, place) => {
     try {
       if (typeof this.pieces[piece] !== "undefined") {
@@ -213,7 +78,8 @@ class Chess {
         );
 
         if (indexValue >= 0) {
-          const moves = this.pieces[piece].check(place, indexValue);
+          const moves = this.check(place, indexValue, this.pieces[piece]);
+          this.drawPosibilities(moves);
           if (moves !== "") return moves;
           else return "No moves are available!";
         } else {
@@ -225,6 +91,115 @@ class Chess {
     } catch (error) {
       console.log("error while moving piece", error);
     }
+  };
+  check = (position, actualIndex, pieceObj) => {
+    const [alphabet, positionIndex] = position.split("");
+    const alphaIndex = this.places.indexOf(alphabet);
+    const moves = [];
+    // console.log(alphabet, actualIndex, positionIndex);
+
+    for (let x = 0; x < this.chessboard.length; x++) {
+      for (let y = 0; y < this.chessboard[x].length; y++) {
+        if (y === alphaIndex) {
+          for (let p = 1; p <= pieceObj.step; p++) {
+            // one step east
+            if (
+              pieceObj.east &&
+              typeof this.chessboard[x - p] !== "undefined"
+            ) {
+              if (actualIndex === x) {
+                moves.push(this.chessboard[x - p][y]);
+              }
+
+              // one step for south-east
+              if (
+                pieceObj.southEast &&
+                typeof this.chessboard[x - p][y + p] !== "undefined"
+              ) {
+                if (actualIndex === x) {
+                  moves.push(this.chessboard[x - p][y + p]);
+                }
+              }
+
+              // one step north-east
+              if (
+                pieceObj.northEast &&
+                typeof this.chessboard[x - p][y - p] !== "undefined"
+              ) {
+                if (actualIndex === x) {
+                  moves.push(this.chessboard[x - p][y - p]);
+                }
+              }
+            }
+
+            // one step west
+            if (
+              pieceObj.west &&
+              typeof this.chessboard[x + p] !== "undefined"
+            ) {
+              if (actualIndex === x) {
+                moves.push(this.chessboard[x + p][y]);
+              }
+
+              // one step south-west
+              if (
+                pieceObj.southWest &&
+                typeof this.chessboard[x + p][y + p] !== "undefined"
+              ) {
+                if (actualIndex === x) {
+                  moves.push(this.chessboard[x + p][y + p]);
+                }
+              }
+
+              // one step north-west
+              if (
+                pieceObj.northWest &&
+                typeof this.chessboard[x + p][y - p] !== "undefined"
+              ) {
+                if (actualIndex === x) {
+                  moves.push(this.chessboard[x + p][y - p]);
+                }
+              }
+            }
+
+            // one step north
+            if (
+              pieceObj.north &&
+              typeof this.chessboard[x][y - p] !== "undefined"
+            ) {
+              if (actualIndex === x) {
+                moves.push(this.chessboard[x][y - p]);
+              }
+            }
+
+            // one step south
+            if (
+              pieceObj.south &&
+              typeof this.chessboard[x][y + p] !== "undefined"
+            ) {
+              if (actualIndex === x) {
+                moves.push(this.chessboard[x][y + p]);
+              }
+            }
+          }
+        }
+      }
+    }
+    moves.sort();
+    return moves.join();
+  };
+  drawPosibilities = (moves) => {
+    let boardCopy = this.chessboard;
+    const movesArr = moves.split(",");
+
+    for (let x = 0; x < this.chessboard.length; x++) {
+      for (let y = 0; y < this.chessboard[x].length; y++) {
+        if (movesArr.indexOf(this.chessboard[x][y]) <= -1)
+          boardCopy[x][y] = "-";
+      }
+    }
+    this.drawConsole("Possible Moves\t");
+    console.table(boardCopy);
   };
 }
 
